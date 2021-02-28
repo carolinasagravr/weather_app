@@ -1,180 +1,175 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Weather App</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </head>
-    <style>
-        body{
-            background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-        }
-        h1{
-            text-align: right;
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-        }
-        h2{
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 50px;
-        }
-        li{
-            list-style: none;
-            text-transform: capitalize;
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 20px;
-        }
-        h3{
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 40px;
-        }
-        .units{
-            font-size: 30px;
-        }
-        h4{
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 20px;
-        }
-        p{
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 20px; 
-        }
-        .range{
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-        }
-        .row{
-            align-items: center;
-            justify-content: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-        }
-        .table{
-            font-family: 'Lato', sans-serif;
-            font-size: 15px; 
-        }
-    </style>
-    <body>
-        <div class="container">
-            <h1>
-                <form id="search-form">
-                <div class="row">
-                    <div class="col-6">
-                    <input
-                    type="text"
-                    placeholder="Search a city"
-                    autocomplete="off"
-                    autofocus="on"
-                    id="city-input"
-                    />
-                    <input type="submit" value="Search"/>
-                    <button id="current-location-button">
-                        Current
-                    </button>
-                </div>
-                </div>
-                </form>
-               
-                    
-            </h1>
-            <h2 id ="city"></h2>
-            <li id ="description"></li>
-            <h3>
-                <div class="row"></div>
-                <div class="clearfix weather-temperature">
-                <img 
-                    src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" 
-                    alt="Current"
-                    id="icon"
-                    class="float-left"
-                />
-                <div class="float-left">
-                <span class="temperature" id="temperature"></span>
-                <span class="units">
-                    <a href="#" id="celsius-link" class="active">°C</a> |
-                    <a href="#" id="fahrenheit-link">°F</a></span>
-                </div>
-                </div>
-            </h3>
-            <h4 class = "content-box">
-                Humidity: <span id="humidity"></span>%
-                  Wind: <span id="wind"></span> km/h
-            </h4>
-            
-            <p class = "date"> </p>
-
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Weather App</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        </head>
+        <style>
+            body{
+                background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            }
+            h1{
+                text-align: right;
+                font-family: 'Lato', sans-serif;
+                font-size: 15px;
+            }
+            h2{
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 40px;
+            }
+            li{
+                list-style: none;
+                text-transform: capitalize;
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 20px;
+            }
+            h3{
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 30px;
+            }
+            .units{
+                font-size: 30px;
+            }
+            h4{
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 20px;
+            }
+            p{
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 20px; 
+            }
+            .range{
+                text-align: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 15px;
+            }
+            .row{
+                align-items: center;
+                justify-content: center;
+                font-family: 'Lato', sans-serif;
+                font-size: 15px;
+            }
+            .table{
+                font-family: 'Lato', sans-serif;
+                font-size: 15px; 
+            }
+        </style>
+        <body>
+            <div class="container">
+                <h1>
+                    <form id="search-form">
+                    <div class="row">
+                        <div class="col-6">
+                        <input
+                        type="text"
+                        placeholder="Search a city"
+                        autocomplete="off"
+                        autofocus="on"
+                        id="city-input"
+                        />
+                        <input type="submit" value="Search"/>
+                        <button id="current-location-button">
+                            Current
+                        </button>
+                    </div>
+                    </div>
+                    </form>
+                
                         
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Weekday</th>
-                        <th scope="col">Max</th>
-                        <th scope="col">Min</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Monday</th>
-                        <td>21</td>
-                        <td>8</td>
-                        <td>⛅</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tuesday</th>
-                        <td>23</td>
-                        <td>9</td>
-                        <td>☀️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Wednesday</th>
-                        <td>22</td>
-                        <td>9</td>
-                        <td>☁️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Thursday</th>
-                        <td>24</td>
-                        <td>9</td>
-                        <td>☀️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Friday</th>
-                        <td>25</td>
-                        <td>10</td>
-                        <td>☀️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Saturday</th>
-                        <td>25</td>
-                        <td>10</td>
-                        <td>⛅</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sunday</th>
-                        <td>25</td>
-                        <td>9</td>
-                        <td>☀️</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p> 
-            <a href="https://github.com/carolinasagravr/weather_app/blob/main/index.html"> Open-source Code</a> by Carolina Vargas
-        </p>
-        <script>
-            let now = new Date();
+                </h1>
+                <h2 id ="city"></h2>
+                <li id ="description"></li>
+                <h3>
+                    <div class="row"></div>
+                    <div class="clearfix weather-temperature">
+                    <img src="" alt="Current" id="icon" class="float-left" />
+                    <div class="float-left">
+                    <span class="temperature" id="temperature"></span>
+                    <span class="units">
+                        <a href="#" id="celsius-link" class="active">°C</a> |
+                        <a href="#" id="fahrenheit-link">°F</a></span>
+                    </div>
+                    </div>
+                </h3>
+                <h4 class = "content-box">
+                    Humidity: <span id="humidity"></span>%
+                    Wind: <span id="wind"></span> km/h
+                </h4>
+                
+                <p class = "date"> </p>
+
+                            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Weekday</th>
+                            <th scope="col">Max</th>
+                            <th scope="col">Min</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Monday</th>
+                            <td>21</td>
+                            <td>8</td>
+                            <td>⛅</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuesday</th>
+                            <td>23</td>
+                            <td>9</td>
+                            <td>☀️</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wednesday</th>
+                            <td>22</td>
+                            <td>9</td>
+                            <td>☁️</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Thursday</th>
+                            <td>24</td>
+                            <td>9</td>
+                            <td>☀️</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Friday</th>
+                            <td>25</td>
+                            <td>10</td>
+                            <td>☀️</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Saturday</th>
+                            <td>25</td>
+                            <td>10</td>
+                            <td>⛅</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sunday</th>
+                            <td>25</td>
+                            <td>9</td>
+                            <td>☀️</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p> 
+                <a href="https://github.com/carolinasagravr/weather_app/blob/main/index.html"> Open-source Code</a> by Carolina Vargas
+            </p>
+            <script>
+                let now = new Date();
 
                 let p = document.querySelector("p");
 
@@ -199,7 +194,7 @@
 
                     celsiusTemperature = response.data.main.temp;
 
-                    document.querySelector("icon").setAttribute("src", `http://api.openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+                    document.querySelector("#icon").setAttribute("src", `http://api.openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
                     );
                  }
 
@@ -258,7 +253,7 @@
                     let fahrenheitLink = document.querySelector("#fahrenheit-link");
                     fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
                     let celsiusLink = document.querySelector("#celsius-link");
-                    celsiusLink.addEventListener("click", displayCelsiusTemperature);   
-        </script>
-    </body>
-    </html>
+                    celsiusLink.addEventListener("click", displayCelsiusTemperature);
+            </script>
+        </body>
+        </html>
