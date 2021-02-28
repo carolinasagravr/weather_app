@@ -102,68 +102,20 @@
                     </div>
                     </div>
                 </h3>
-                <h4 class = "content-box">
+                <h4 class ="content-box">
                     Humidity: <span id="humidity"></span>%
                     Wind: <span id="wind"></span> km/h
                 </h4>
                 
                 <p class = "date"> </p>
+                
+                <div class ="row" id ="forecast">
+                </div>   
+                    
+                </br>
+                </br>
 
-                            
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Weekday</th>
-                            <th scope="col">Max</th>
-                            <th scope="col">Min</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Monday</th>
-                            <td>21</td>
-                            <td>8</td>
-                            <td>⛅</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tuesday</th>
-                            <td>23</td>
-                            <td>9</td>
-                            <td>☀️</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Wednesday</th>
-                            <td>22</td>
-                            <td>9</td>
-                            <td>☁️</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Thursday</th>
-                            <td>24</td>
-                            <td>9</td>
-                            <td>☀️</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Friday</th>
-                            <td>25</td>
-                            <td>10</td>
-                            <td>☀️</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Saturday</th>
-                            <td>25</td>
-                            <td>10</td>
-                            <td>⛅</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Sunday</th>
-                            <td>25</td>
-                            <td>9</td>
-                            <td>☀️</td>
-                        </tr>
-                    </tbody>
-                </table>
+                
             </div>
             <p> 
                 <a href="https://github.com/carolinasagravr/weather_app/blob/main/index.html"> Open-source Code</a> by Carolina Vargas
@@ -202,6 +154,7 @@
                     let apiKey = "05703d6d81e5b863b75a18b0bcb7a8ea";
                     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
                     axios.get(apiUrl).then(displayWeatherCondition);
+
                 }
 
                 function handleSubmit(event) {
@@ -254,6 +207,30 @@
                     fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
                     let celsiusLink = document.querySelector("#celsius-link");
                     celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+                function dispalyRealForecast(response) {
+                    let forecastElement = document.querySelector("#forecast");
+                    let forecast = response.data.list[0];
+                    console.log(forecast);
+
+                    forecastElement.innerHTML = `
+                    <div class = "col">
+                        14:00
+                        <img src = "http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt = "" />
+                        <div clas = "weather-forecast-temperature">
+                            <strong>${Math.round(forecast.main.temp_max)}°</strong> ${Math.round(forecast.main.temp_min)}°
+                        </div>
+                    </div>
+                    `
+                }
+
+                function displayForecast(forecast) {
+                    let apiKey = "05703d6d81e5b863b75a18b0bcb7a8ea";
+                    let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+                    axios.get(apiUrl).then(displayRealForecast);
+                }
+                
+
             </script>
         </body>
         </html>
