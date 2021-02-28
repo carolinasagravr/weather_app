@@ -24,10 +24,22 @@
             font-family: 'Lato', sans-serif;
             font-size: 50px;
         }
+        li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-transform: capitalize;
+            font-family: 'Lato', sans-serif;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
         h3{
             text-align: center;
             font-family: 'Lato', sans-serif;
             font-size: 40px;
+        }
+        .units{
+            font-size: 30px;
         }
         h4{
             text-align: center;
@@ -39,7 +51,7 @@
             font-family: 'Lato', sans-serif;
             font-size: 20px; 
         }
-                .range{
+        .range{
             text-align: center;
             font-family: 'Lato', sans-serif;
             font-size: 15px;
@@ -79,13 +91,20 @@
                     
             </h1>
             <h2 id ="city"></h2>
+            <ul>
+                <li id = "description"></li>
+            </ul>
             <h3>
                 <div class="row"></div>
-                <img src="https://ssl.gstatic.com/onebox/weather/48/rain_s_cloudy.png" alt="" />
+                <div class="clearfix weather-temperature">
+                <img src="" alt="Clear" id="icon" class="float-left" />
+                <div class="float-left">
                 <span class="temperature" id="temperature"></span>
-                <span class="units">°C</span>
-
-                <br />
+                <span class="units">
+                    <a href="#" id="celsius-link" class="active">°C</a> |
+                    <a href="#" id="fahrenheit-link">°F</a></span>
+                </div>
+                </div>
             </h3>
             <h4 class = "content-box">
                 Humidity: <span id="humidity"></span>%
@@ -95,15 +114,7 @@
             
             <p class = "date"> </p>
 
-            
-            <div class="row row-cols-auto">
-                <div class="col">☁️ 22</div>
-                <div class="col">☁️ 23</div>
-                <div class="col">☁️ 0</div>
-                <div class="col">☁️ 1</div>
-                <div class="col">☁️ 2</div>
-                <div class="col">☁️ 3</div>
-            </div>
+                        
             <table class="table">
                 <thead>
                     <tr>
@@ -163,30 +174,32 @@
             <a href="https://github.com/carolinasagravr/weather_app/blob/main/index.html"> Open-source Code</a> by Carolina Vargas
         </p>
         <script>
-            let now = new Date();
+           let now = new Date();
 
-            let p = document.querySelector("p");
+                let p = document.querySelector("p");
 
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-            let day = days[now.getDay()];
+                let hours = now.getHours();
+                let minutes = now.getMinutes();
+                let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+                let day = days[now.getDay()];
 
-            p.innerHTML = `${day}, ${hours}:${minutes}`;
+                p.innerHTML = `${day}, ${hours}:${minutes}`;
 
-             function displayWeatherCondition(response) {
-                document.querySelector("#city").innerHTML = response.data.name;
-                document.querySelector("#temperature").innerHTML = Math.round(
-                    response.data.main.temp
-                );
+                function displayWeatherCondition(response) {
+                    document.querySelector("#city").innerHTML = response.data.name;
+                    document.querySelector("#temperature").innerHTML = Math.round(
+                        response.data.main.temp
+                    );
 
-                document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-                document.querySelector("#wind").innerHTML = Math.round(
-                    response.data.wind.speed
-                );
-             }
-            
-            function searchCity(city) {
+                    document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+                    document.querySelector("#wind").innerHTML = Math.round(
+                        response.data.wind.speed
+                    );
+
+                    document.querySelector("description").innerHTML = response.data.weather[0].description;
+                }
+
+                function searchCity(city) {
                     let apiKey = "05703d6d81e5b863b75a18b0bcb7a8ea";
                     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
                     axios.get(apiUrl).then(displayWeatherCondition);
@@ -217,7 +230,7 @@
                 let currentLocationButton = document.querySelector("#current-location-button");
                 currentLocationButton.addEventListener("click", getCurrentLocation);
 
-            searchCity("London");
+                searchCity("London");    
         </script>
     </body>
     </html>
