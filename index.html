@@ -26,12 +26,10 @@
         }
         li{
             list-style: none;
-            margin: 0;
-            padding: 0;
             text-transform: capitalize;
+            text-align: center;
             font-family: 'Lato', sans-serif;
             font-size: 20px;
-            margin-bottom: 30px;
         }
         h3{
             text-align: center;
@@ -91,13 +89,16 @@
                     
             </h1>
             <h2 id ="city"></h2>
-            <ul>
-                <li id = "description"></li>
-            </ul>
+            <li id ="description"></li>
             <h3>
                 <div class="row"></div>
                 <div class="clearfix weather-temperature">
-                <img src="" alt="Clear" id="icon" class="float-left" />
+                <img 
+                    src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" 
+                    alt="Current"
+                    id="icon"
+                    class="float-left"
+                />
                 <div class="float-left">
                 <span class="temperature" id="temperature"></span>
                 <span class="units">
@@ -108,8 +109,7 @@
             </h3>
             <h4 class = "content-box">
                 Humidity: <span id="humidity"></span>%
-                </br>
-                Wind: <span id="wind"></span> km/h
+                  Wind: <span id="wind"></span> km/h
             </h4>
             
             <p class = "date"> </p>
@@ -174,7 +174,7 @@
             <a href="https://github.com/carolinasagravr/weather_app/blob/main/index.html"> Open-source Code</a> by Carolina Vargas
         </p>
         <script>
-           let now = new Date();
+            let now = new Date();
 
                 let p = document.querySelector("p");
 
@@ -187,6 +187,7 @@
 
                 function displayWeatherCondition(response) {
                     document.querySelector("#city").innerHTML = response.data.name;
+                    document.querySelector("#description").innerHTML = response.data.weather[0].description;
                     document.querySelector("#temperature").innerHTML = Math.round(
                         response.data.main.temp
                     );
@@ -195,15 +196,12 @@
                     document.querySelector("#wind").innerHTML = Math.round(
                         response.data.wind.speed
                     );
-                    
+
                     celsiusTemperature = response.data.main.temp;
 
-                    document.querySelector("description").setAttribute(
-                        "src"
-                        `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
+                    document.querySelector("icon").setAttribute("src", `http://api.openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
                     );
-                        iconElement.setAttribute("alt", response.data.weather[0].description);
-                }
+                 }
 
                 function searchCity(city) {
                     let apiKey = "05703d6d81e5b863b75a18b0bcb7a8ea";
@@ -260,31 +258,7 @@
                     let fahrenheitLink = document.querySelector("#fahrenheit-link");
                     fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
                     let celsiusLink = document.querySelector("#celsius-link");
-                    celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
-            function displayFahrenheitTemperature(event) {
-                     event.preventDefault();
-                    let temperatureElement = document.querySelector("#temperature");
-                    celsiusLink.classList.remove("active");
-                    fahrenheitLink.classList.add("active");
-                    let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
-                    temperatureElement.innerHTML = Math.round(fahrenheiTemperature);
-                }
-
-                function displayCelsiusTemperature(event) {
-                    event.preventDefault();
-                    celsiusLink.classList.add("active");
-                    fahrenheitLink.classList.remove("active");
-                    let temperatureElement = document.querySelector("#temperature");
-                    temperatureElement.innerHTML = Math.round(celsiusTemperature);
-                }
-                    let celsiusTemperature = null;
-                    let form = document.querySelector("#search-form");
-                    form.addEventListener("submit", handleSubmit);
-                    let fahrenheitLink = document.querySelector("#fahrenheit-link");
-                    fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-                    let celsiusLink = document.querySelector("#celsius-link");
-                    celsiusLink.addEventListener("click", displayCelsiusTemperature);
+                    celsiusLink.addEventListener("click", displayCelsiusTemperature);   
         </script>
     </body>
     </html>
